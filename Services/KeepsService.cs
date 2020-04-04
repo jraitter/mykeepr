@@ -18,9 +18,9 @@ namespace Keepr.Services
       return _repo.GetPublic();
     }
 
-    internal IEnumerable<Keep> GetPrivateKeeps(string UserId)
+    internal IEnumerable<Keep> GetMyKeeps(string UserId)
     {
-      return _repo.GetPrivateKeeps(UserId);
+      return _repo.GetMyKeeps(UserId);
     }
 
     internal Keep Get(int Id)
@@ -44,7 +44,7 @@ namespace Keepr.Services
       Keep found = Get(updatedKeep.Id);
       if (found.UserId != updatedKeep.UserId)
       {
-        throw new Exception("Invalid Requesto or Privileges");
+        throw new Exception("Invalid Request or Privileges");
       }
       found.Name = updatedKeep.Name;
       found.IsPrivate = updatedKeep.IsPrivate;
