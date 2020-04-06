@@ -30,7 +30,6 @@ export default {
       this.$store.dispatch("deleteKeep", this.keepData.id);
     },
     setActive() {
-      this.keepData.views++;
       this.$store.dispatch("setActiveKeep", this.keepData);
     },
     nothing() {}

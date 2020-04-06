@@ -10,6 +10,20 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-12 text-right">
+        <button
+          v-if="!vaultForm"
+          @click="vaultForm = true"
+          class="btn btn-success mt-2"
+        >Create-Vault</button>
+        <button v-else @click="vaultForm = false" class="btn btn-danger mt-2">cancel</button>
+      </div>
+      <div class="col-12">
+        <create-vault v-if="vaultForm" />
+      </div>
+    </div>
+
+    <div class="row">
       <div class="col-12">
         <keeps />
       </div>
@@ -20,7 +34,7 @@
 <script>
 import Keeps from "../components/Keeps";
 import CreateKeep from "@/components/CreateKeep";
-// import CreateVault from "@/components/CreateVault";
+import CreateVault from "@/components/CreateVault";
 
 export default {
   name: "Dashboard",
@@ -28,18 +42,19 @@ export default {
     //NOTE mounted is fired when the component is 'mounted' to the page
     //NOTE '$' is a reference to the Root instance (main.js)
     this.$store.dispatch("setAuthUser", this.$auth.user);
-
     this.$store.dispatch("getMyKeeps");
+    this.$store.dispatch("getVaults");
   },
   data() {
     return {
-      keepForm: false
+      keepForm: false,
+      vaultForm: false
     };
   },
   components: {
     Keeps,
-    CreateKeep
-    // CreateVault
+    CreateKeep,
+    CreateVault
   }
 };
 </script>

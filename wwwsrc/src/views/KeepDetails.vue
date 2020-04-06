@@ -21,7 +21,24 @@
 <script>
 export default {
   name: "KeepDetails",
-  mounted() {},
+  mounted() {
+    if (JSON.stringify(this.$store.state.activeKeep) == "{}") {
+      let activeKeepData = JSON.parse(
+        window.localStorage.getItem("activeKeepData")
+      );
+      if (activeKeepData == null) {
+        console.error("error retrieving activeKeepData from local storage");
+      }
+      this.$store.dispatch("setActiveKeep", activeKeepData);
+      console.log("activeKeep: ", this.$store.state.activeKeep);
+    } else {
+      window.localStorage.setItem(
+        "activeKeepData",
+        JSON.stringify(this.$store.state.activeKeep)
+      );
+    }
+    this.$store.dispatch("updateViews", this.$store.state.activeKeep.id);
+  },
   computed: {
     details() {
       return this.$store.state.activeKeep;

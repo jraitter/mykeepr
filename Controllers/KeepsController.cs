@@ -107,6 +107,31 @@ namespace Keepr.Controllers
         return BadRequest(e.Message);
       }
     }
+    [HttpPut("{keepId}/viewcount")]
+    public ActionResult<Keep> ViewCount(int keepId)
+    {
+      try
+      {
+        return Ok(_ks.ViewCount(keepId));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+    [HttpPut("{keepId}/keepcount")]
+    public ActionResult<Keep> KeepCount(int keepId)
+    {
+      try
+      {
+        return Ok(_ks.KeepCount(keepId));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
     [HttpDelete("{keepId}")]
     [Authorize]
     public ActionResult<Keep> Delete(int keepId)

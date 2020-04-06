@@ -40,7 +40,7 @@ namespace Keepr.Repositories
     //         WHERE vaultId = @Id;";
     //   return _db.Query<Keep>(sql, new { Id });
     // }
-    internal IEnumerable<Keep> GetKeepsByVaultId(int vaultId, string userId)
+    internal IEnumerable<VaultKeepViewModel> GetKeepsByVaultId(int vaultId, string userId)
     {
       string sql = @"
       SELECT 
@@ -50,7 +50,7 @@ namespace Keepr.Repositories
       INNER JOIN keeps k ON k.id = vk.keepId 
       WHERE (vaultId = @VaultId AND vk.userId = @UserId) 
       ";
-      return _db.Query<Keep>(sql, new { vaultId, userId });
+      return _db.Query<VaultKeepViewModel>(sql, new { vaultId, userId });
     }
     internal Keep Create(Keep newKeep)
     {
@@ -80,6 +80,28 @@ namespace Keepr.Repositories
       _db.Execute(sql, updatedKeep);
       return updatedKeep;
     }//endof edit
+
+    internal Keep ViewCount(Keep updatedKeep)
+    {
+      string sql = @"
+    UPDATE keeps SET
+    views = @Views
+    WHERE id = @Id
+    ";
+      _db.Execute(sql, updatedKeep);
+      return updatedKeep;
+    }//endof viewcount
+
+    internal Keep KeepCount(Keep updatedKeep)
+    {
+      string sql = @"
+    UPDATE keeps SET
+    keeps = @Keeps
+    WHERE id = @Id
+    ";
+      _db.Execute(sql, updatedKeep);
+      return updatedKeep;
+    }//endof viewcount
 
     internal bool Delete(int Id)
     {

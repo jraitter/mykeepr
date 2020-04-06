@@ -33,7 +33,7 @@ namespace Keepr.Services
       }
       return found;
     }
-    public IEnumerable<Keep> GetKeepsByVaultId(int vaultId, string userId)
+    public IEnumerable<VaultKeepViewModel> GetKeepsByVaultId(int vaultId, string userId)
     {
       return _repo.GetKeepsByVaultId(vaultId, userId);
     }
@@ -58,6 +58,20 @@ namespace Keepr.Services
       found.Keeps = updatedKeep.Keeps != 0 ? updatedKeep.Keeps : found.Keeps;
       return _repo.Edit(found);
     }//endof edit
+
+    internal Keep ViewCount(int keepId)
+    {
+      Keep found = Get(keepId);
+      found.Views++;
+      return _repo.ViewCount(found);
+    }//endof viewcount
+
+    internal Keep KeepCount(int keepId)
+    {
+      Keep found = Get(keepId);
+      found.Keeps++;
+      return _repo.KeepCount(found);
+    }//endof keepcount
 
     internal Keep Delete(int id, string userId)
     {
