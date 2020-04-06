@@ -21,19 +21,7 @@
 <script>
 export default {
   name: "KeepDetails",
-  mounted() {
-    // NOTE if we have no cars in state
-    if (!this.$store.state.Keeps.length) {
-      // NOTE Go get the keep by its id
-      this.$store.dispatch("getKeepById", this.$route.params.keepId);
-    } else {
-      // NOTE otherwise, set the car as the active car, based on its ID
-      this.$store.dispatch(
-        "setActiveKeep",
-        this.$store.state.Keeps.find(k => k.id == this.$route.params.keepId)
-      );
-    }
-  },
+  mounted() {},
   computed: {
     details() {
       return this.$store.state.activeKeep;

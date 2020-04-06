@@ -17,11 +17,15 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
+    user: {},
     Keeps: [],
     activeKeep: {},
     myVaults: []
   },
   mutations: {
+    setAuthUser(state, authUser) {
+      state.user = authUser;
+    },
     setKeeps(state, payload) {
       state.Keeps = payload;
     },
@@ -44,6 +48,9 @@ export default new Vuex.Store({
     },
     resetBearer() {
       api.defaults.headers.authorization = "";
+    },
+    setAuthUser({ commit }, authUser) {
+      commit("setAuthUser", authUser)
     },
     async getKeeps({ commit, dispatch }) {
       try {
@@ -76,8 +83,21 @@ export default new Vuex.Store({
         router.push({ name: "Home" });
       }
     },
-    setActiveKeep({ commit }, keep) {
-      commit("setActiveKeep", keep);
+    async setActiveKeep({ commit }, keep) {
+      try {
+        if (keep.userId == this.state.user.sub) {
+          let res = await api.put("keeps/" + keep.id, keep);
+        }
+        commit("setActiveKeep", keep);
+        router.push({
+          name: "KeepDetails",
+          params: { keepId: keep.id }
+        });
+      } catch (error) {
+        console.error(error);
+        // NOTE on error push route to home
+        router.push({ name: "Home" });
+      }
     },
     async getMyVaults({ commit, dispatch }) {
       try {

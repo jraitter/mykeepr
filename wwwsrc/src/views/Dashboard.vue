@@ -27,6 +27,8 @@ export default {
   mounted() {
     //NOTE mounted is fired when the component is 'mounted' to the page
     //NOTE '$' is a reference to the Root instance (main.js)
+    this.$store.dispatch("setAuthUser", this.$auth.user);
+
     this.$store.dispatch("getMyKeeps");
   },
   data() {
