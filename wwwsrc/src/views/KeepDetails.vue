@@ -2,17 +2,37 @@
   <div class="keep-details container-fluid">
     <div class="row">
       <div class="col-2"></div>
+
       <div class="col-8">
-        <div v-if="details.id">
-          <div class="card mt-4">
-            <img class="card-img-top" :src="details.img" alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title">{{details.name}}</h5>
-              <p class="card-text">{{details.description}}</p>
-            </div>
+        <div class="card m-4">
+          <img :src="details.img" class="card-img-top" />
+          <div class="text-center d-flex justify-content-around mt-3">
+            <p class="text-info">Keeps: {{details.keeps}}</p>
+            <p class="text-primary">Shares: {{details.shares}}</p>
+            <p class="text-success">Views: {{details.views}}</p>
+          </div>
+          <div class="card-body border border-dark mx-1">
+            <p class="card-title">
+              <span>
+                <b>NAME:</b>
+              </span>
+              {{ details.name }}
+            </p>
+            <p class="card-title">
+              <span>
+                <b>DESCRIPTION:</b>
+              </span>
+              {{ details.description }}
+            </p>
+          </div>
+          <div class="text-center d-flex justify-content-around my-2">
+            <button class="btn btn-sm btn-info" @click="nothing">Keep</button>
+            <button class="btn btn-sm btn-primary" @click="nothing">Share</button>
+            <button v-if="details.isPrivate" class="btn btn-sm btn-danger" @click="nothing">Delete</button>
           </div>
         </div>
       </div>
+
       <div class="col-2"></div>
     </div>
   </div>
@@ -44,7 +64,9 @@ export default {
       return this.$store.state.activeKeep;
     }
   },
-  methods: {}
+  methods: {
+    nothing() {}
+  }
 };
 </script>
 

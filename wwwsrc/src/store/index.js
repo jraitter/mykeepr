@@ -128,11 +128,8 @@ export default new Vuex.Store({
       try {
         let res = await api.post("keeps", newKeep);
         commit("addKeep", res.data);
-        // NOTE after the keep is created, send them to the keep details page for that keep
-        router.push({
-          name: "KeepDetails",
-          params: { keepId: res.data.id }
-        });
+        //NOTE send to details page
+        dispatch("setActiveKeep", res.data);
       } catch (error) {
         console.error(error);
       }
