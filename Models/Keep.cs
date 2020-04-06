@@ -7,8 +7,6 @@ namespace Keepr.Models
     public int Id { get; set; }
     public string UserId { get; set; }
     [Required]
-    // [MinLength(3)]
-    // [MaxLength(20)]
     public string Name { get; set; }
     public string Description { get; set; }
     public string Img { get; set; }

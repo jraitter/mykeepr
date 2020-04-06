@@ -13,10 +13,12 @@ namespace Keepr.Controllers
   public class VaultsController : ControllerBase
   {
     private readonly VaultService _vs;
+    private readonly KeepsService _ks;
 
-    public VaultsController(VaultService vs)
+    public VaultsController(VaultService vs, KeepsService ks)
     {
       _vs = vs;
+      _ks = ks;
     }
 
     [HttpGet]
@@ -61,6 +63,21 @@ namespace Keepr.Controllers
         return BadRequest(e.Message);
       }
     }//endof get by id
+
+    [HttpGet("{vaultId}/keeps")]
+    [Authorize]
+    public ActionResult<IEnumerable<Keep>> GetKeepsByVaultId(int vaultId)
+    {
+      try
+      {
+        string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        return Ok(_ks.GetKeepsByVaultId(vaultId, userId));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }//endof
 
     [HttpPost]
     [Authorize]

@@ -17,15 +17,101 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
-    publicKeeps: []
+    Keeps: [],
+    activeKeep: {},
+    myVaults: []
   },
-  mutations: {},
+  mutations: {
+    setKeeps(state, payload) {
+      state.Keeps = payload;
+    },
+    setActiveKeep(state, payload) {
+      state.activeKeep = payload;
+    },
+    setMyVaults(state, payload) {
+      state.myVaults = payload;
+    },
+    addKeep(state, payload) {
+      state.Keeps.push(payload);
+    },
+    removeKeep(state, id) {
+      state.Keeps = state.Keeps.filter(k => k.id != id);
+    }
+  },//endof mutations
   actions: {
-    setBearer({}, bearer) {
+    setBearer({ }, bearer) {
       api.defaults.headers.authorization = bearer;
     },
     resetBearer() {
       api.defaults.headers.authorization = "";
-    }
-  }
-});
+    },
+    async getKeeps({ commit, dispatch }) {
+      try {
+        let res = await api.get("keeps");
+        commit("setKeeps", res.data);
+      }
+      catch (error) {
+        console.error(error);
+        // NOTE on error push route to home
+        router.push({ name: "Home" });
+      }
+    },
+    async getMyKeeps({ commit, dispatch }) {
+      try {
+        let res = await api.get("keeps/mykeeps");
+        commit("setKeeps", res.data);
+      } catch (error) {
+        console.error(error);
+        // NOTE on error push route to home
+        router.push({ name: "Home" });
+      }
+    },
+    async getKeepById({ commit, dispatch }, keepId) {
+      try {
+        let res = await api.get("keeps/" + keepId);
+        commit("setActiveKeep", res.data);
+      } catch (error) {
+        console.error(error);
+        // NOTE on error push route to home
+        router.push({ name: "Home" });
+      }
+    },
+    setActiveKeep({ commit }, keep) {
+      commit("setActiveKeep", keep);
+    },
+    async getMyVaults({ commit, dispatch }) {
+      try {
+        let res = await api.get("keeps/myvaults");
+        commit("setMyVaults", res.data);
+      } catch (error) {
+        console.error(error);
+        // NOTE on error push route to home
+        router.push({ name: "Home" });
+      }
+    },
+    async createKeep({ commit, dispatch }, newKeep) {
+      try {
+        let res = await api.post("keeps", newKeep);
+        commit("addKeep", res.data);
+        // NOTE after the keep is created, send them to the keep details page for that keep
+        router.push({
+          name: "KeepDetails",
+          params: { keepId: res.data.id }
+        });
+      } catch (error) {
+        console.error(error);
+        // NOTE on error push route to home
+        router.push({ name: "Home" });
+      }
+    },
+    async deleteKeep({ commit, dispatch }, keepId) {
+      try {
+        let res = await api.delete(`keeps/${keepId}`);
+        commit("removeKeep", keepId);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+  }//endof actions
+});//endof store
