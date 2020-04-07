@@ -25,6 +25,12 @@
 
     <div class="row">
       <div class="col-12">
+        <vaults />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
         <keeps />
       </div>
     </div>
@@ -35,6 +41,7 @@
 import Keeps from "../components/Keeps";
 import CreateKeep from "@/components/CreateKeep";
 import CreateVault from "@/components/CreateVault";
+import Vaults from "../components/Vaults";
 
 export default {
   name: "Dashboard",
@@ -54,7 +61,8 @@ export default {
   components: {
     Keeps,
     CreateKeep,
-    CreateVault
+    CreateVault,
+    Vaults
   }
 };
 </script>

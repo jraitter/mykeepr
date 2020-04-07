@@ -21,7 +21,8 @@ export default new Vuex.Store({
     Keeps: [],
     activeKeep: {},
     Vaults: [],
-    VaultKeeps: []
+    VaultKeeps: [],
+    KeepsByVaultId: []
   },
   mutations: {
     setAuthUser(state, authUser) {
@@ -47,6 +48,9 @@ export default new Vuex.Store({
     },
     removeKeep(state, id) {
       state.Keeps = state.Keeps.filter(k => k.id != id);
+    },
+    removeVault(state, id) {
+      state.Vaults = state.Vaults.filter(v => v.id != id);
     }
   },//endof mutations
   actions: {
@@ -162,6 +166,14 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    async deleteVault({ commit, dispatch }, vaultId) {
+      try {
+        let res = await api.delete(`vaults/${vaultId}`);
+        commit("removeVault", vaultId);
+      } catch (error) {
+        console.error(error);
+      }
+    }
 
   }//endof actions
 });//endof store
