@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 export default {
   name: "Keep",
   //NOTE child components 'catch' information in props
@@ -60,7 +61,12 @@ export default {
       };
       this.$store.dispatch("createVaultKeep", payload);
     },
-    nothing() {}
+    nothing() {
+      Swal.fire(
+        "This KEEP was just shared to a random social media site of our choice.  Thanks for sharing."
+      );
+      this.$store.dispatch("updateShares", this.keepData.id);
+    }
   }
 };
 </script>

@@ -119,6 +119,18 @@ namespace Keepr.Controllers
         return BadRequest(e.Message);
       }
     }
+    [HttpPut("{keepId}/sharecount")]
+    public ActionResult<Keep> ShareCount(int keepId)
+    {
+      try
+      {
+        return Ok(_ks.ShareCount(keepId));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
     [HttpPut("{keepId}/keepcount")]
     public ActionResult<Keep> KeepCount(int keepId)
     {

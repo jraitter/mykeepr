@@ -1,7 +1,7 @@
 <template>
   <div class="keeps row">
     <!-- NOTE Props are data passed from parent to child component -->
-    <div class="col-12">maybe put a search here</div>
+    <!-- <div class="col-12">maybe put a search here</div> -->
     <keep
       v-for="(keepObj, index) in keeps"
       :key="keepObj.id"

@@ -23,6 +23,7 @@ export default {
   methods: {
     getKeepsByVaultId() {
       this.$store.dispatch("getKeepsByVaultId", this.vaultData.id);
+      this.$store.dispatch("getByVaultId", this.vaultData.id);
     },
     deleteVault() {
       this.$store.dispatch("deleteVault", this.vaultData.id);

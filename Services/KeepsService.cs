@@ -66,6 +66,13 @@ namespace Keepr.Services
       return _repo.ViewCount(found);
     }//endof viewcount
 
+    internal Keep ShareCount(int keepId)
+    {
+      Keep found = Get(keepId);
+      found.Shares++;
+      return _repo.ShareCount(found);
+    }//endof sharecount
+
     internal Keep KeepCount(int keepId)
     {
       Keep found = Get(keepId);

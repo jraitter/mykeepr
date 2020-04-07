@@ -92,6 +92,16 @@ namespace Keepr.Repositories
       return updatedKeep;
     }//endof viewcount
 
+    internal Keep ShareCount(Keep updatedKeep)
+    {
+      string sql = @"
+    UPDATE keeps SET
+    shares = @Shares
+    WHERE id = @Id
+    ";
+      _db.Execute(sql, updatedKeep);
+      return updatedKeep;
+    }//endof viewcount
     internal Keep KeepCount(Keep updatedKeep)
     {
       string sql = @"
