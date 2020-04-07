@@ -19,7 +19,7 @@
         <button v-else @click="vaultForm = false" class="btn btn-danger mt-2">cancel</button>
       </div>
       <div class="col-12">
-        <create-vault v-if="vaultForm" />
+        <create-vault v-on:toggleVaultForm="vaultForm=$event" v-if="vaultForm" />
       </div>
     </div>
 

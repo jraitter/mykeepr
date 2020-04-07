@@ -24,6 +24,7 @@ export default {
   methods: {
     createVault() {
       this.$store.dispatch("createVault", this.newVault);
+      this.$emit("toggleVaultForm", false);
     }
   }
 };
