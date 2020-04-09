@@ -38,6 +38,7 @@
           @click="removeKeepfromVault(keepData.id, activeVault.id )"
         >Remove</button>
         <button v-if="keepData.isPrivate" class="btn btn-sm btn-danger" @click="deleteKeep">Delete</button>
+        <button v-if="keepData.isPrivate" class="btn btn-sm btn-warning" @click="makePublic">Public</button>
       </div>
     </div>
   </div>
@@ -49,9 +50,7 @@ export default {
   name: "Keep",
   //NOTE child components 'catch' information in props
   props: ["keepData", "keepIndex", "currentView"],
-  mounted() {
-    console.log("currentView: ", this.currentView);
-  },
+  mounted() {},
   computed: {
     vaults() {
       return this.$store.state.Vaults;
@@ -66,6 +65,9 @@ export default {
     },
     setActive() {
       this.$store.dispatch("setActiveKeep", this.keepData);
+    },
+    makePublic() {
+      this.$store.dispatch("makePublic", this.keepData.id);
     },
     addKeepToVault(keepId, vaultId) {
       let payload = {
