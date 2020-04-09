@@ -13,8 +13,11 @@ export default {
   async beforeCreate() {
     await onAuth();
     this.$store.dispatch("setBearer", this.$auth.bearer);
-    this.$store.dispatch("setAuthUser", this.$auth.user);
-    // console.log("dollar auth:", this.$auth);
+    if (this.$auth.isAuthenticated) {
+      this.$store.dispatch("getMyKeeps");
+      this.$store.dispatch("getVaults");
+      this.$store.dispatch("setAuthUser", this.$auth.user);
+    }
   },
   components: {
     Navbar

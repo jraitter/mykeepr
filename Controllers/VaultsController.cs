@@ -21,20 +21,23 @@ namespace Keepr.Controllers
       _ks = ks;
     }
 
-    [HttpGet]
-    public ActionResult<IEnumerable<Vault>> Get()
-    {
-      try
-      {
-        return Ok(_vs.Get());
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      };
-    }
+    //NOTE this was removed during grading, public should not be allowed to get vaults
+    // [HttpGet]
+    // public ActionResult<IEnumerable<Vault>> Get()
+    // {
+    //   try
+    //   {
+    //     return Ok(_vs.Get());
+    //   }
+    //   catch (Exception e)
+    //   {
+    //     return BadRequest(e.Message);
+    //   };
+    // }
 
-    [HttpGet("myVaults")]
+    // NOTE this was HttpGet("/myvaults"), but I forgot to add /myvaults to the front end store request.
+    // removed /myvaults and the public Get method, now store can just get(vaults) if logged in.
+    [HttpGet]
     [Authorize]
     public ActionResult<IEnumerable<Vault>> GetMyVaults()
     {
