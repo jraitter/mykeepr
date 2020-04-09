@@ -1,9 +1,14 @@
 <template>
   <div class="keep col">
-    <div class="card m-4" style="width: 18rem;">
+    <div class="card m-4">
       <img :src="keepData.img" class="card-img-top" />
-      <div class="card-body border border-dark mt-1">
-        <h5 class="card-title">{{ keepData.name }}</h5>
+      <div class="card-body border border-dark mt-1 mx-1">
+        <h6 class="card-title mb-0">{{ keepData.name }}</h6>
+      </div>
+      <div class="text-center d-flex justify-content-around">
+        <p class="text-info mb-0">K:{{keepData.keeps}}</p>
+        <p class="text-primary mb-0">S:{{keepData.shares}}</p>
+        <p class="text-success mb-0">V:{{keepData.views}}</p>
       </div>
       <div class="text-center d-flex justify-content-around mt-2">
         <button
@@ -22,15 +27,15 @@
             class="dropdown-item"
           >{{vault.name}}</a>
         </div>
-
-        <button class="btn btn-sm btn-primary" @click="nothing">Share</button>
+        <button class="btn btn-sm btn-primary" @click="sweet">Share</button>
         <button class="btn btn-sm btn-success" @click="setActive">View</button>
-        <button v-if="keepData.isPrivate" class="btn btn-sm btn-danger" @click="deleteKeep">Delete</button>
       </div>
-      <div class="text-center d-flex justify-content-around">
-        <p class="text-info">K:{{keepData.keeps}}</p>
-        <p class="text-primary">S:{{keepData.shares}}</p>
-        <p class="text-success">V:{{keepData.views}}</p>
+      <div class="d-flex justify-content-around my-2">
+        <button
+          class="btn btn-sm btn-info"
+          @click="removeKeepfromVault(keepData.id, activeVault.id )"
+        >Remove</button>
+        <button v-if="keepData.isPrivate" class="btn btn-sm btn-danger" @click="deleteKeep">Delete</button>
       </div>
     </div>
   </div>
@@ -45,6 +50,9 @@ export default {
   computed: {
     vaults() {
       return this.$store.state.Vaults;
+    },
+    activeVault() {
+      return this.$store.state.activeVault;
     }
   },
   methods: {
@@ -61,7 +69,14 @@ export default {
       };
       this.$store.dispatch("createVaultKeep", payload);
     },
-    nothing() {
+    removeKeepfromVault(keepId, vaultId) {
+      let payload = {
+        keepId: keepId,
+        vaultId: vaultId
+      };
+      this.$store.dispatch("removeKeepfromVault", payload);
+    },
+    sweet() {
       Swal.fire(
         "This KEEP was just shared to a random social media site of our choice.  Thanks for sharing."
       );

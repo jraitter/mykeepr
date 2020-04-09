@@ -49,6 +49,22 @@ namespace Keepr.Controllers
       }
     }
 
+    [HttpPut("vaultkeep")]
+    [Authorize]
+    public ActionResult<VaultKeep> DeleteVaultKeep([FromBody] VaultKeep toRemove)
+    {
+      try
+      {
+        string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        toRemove.UserId = userId;
+        return Ok(_vks.DeleteVaultKeep(toRemove));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
 
   }//endof class
 }//endof namespace

@@ -1,6 +1,5 @@
 <template>
   <div class="vaults row">
-    <!-- NOTE Props are data passed from parent to child component -->
     <vault v-for="vault in vaults" :key="vault.id" :vaultData="vault" />
   </div>
 </template>

@@ -11,7 +11,7 @@
             <p class="text-primary">Shares: {{details.shares}}</p>
             <p class="text-success">Views: {{details.views}}</p>
           </div>
-          <div class="card-body border border-dark mx-1">
+          <div class="card-body border border-dark mx-2 mb-2">
             <p class="card-title">
               <span>
                 <b>NAME:</b>
@@ -25,24 +25,30 @@
               {{ details.description }}
             </p>
           </div>
-          <div class="text-center d-flex justify-content-around my-2">
+          <!-- <div class="text-center d-flex justify-content-around my-2">
             <button class="btn btn-sm btn-info" @click="nothing">Keep</button>
             <button class="btn btn-sm btn-primary" @click="nothing">Share</button>
             <button v-if="details.isPrivate" class="btn btn-sm btn-danger" @click="nothing">Delete</button>
-          </div>
+          </div>-->
         </div>
       </div>
 
       <div class="col-2"></div>
     </div>
+    <!-- <div class="row">
+      <div class="col-12">
+        <keep :keepData="details" />
+      </div>
+    </div>-->
   </div>
 </template>
 
 <script>
+import Keep from "../components/Keep";
 export default {
   name: "KeepDetails",
   mounted() {
-    if (JSON.stringify(this.$store.state.activeKeep) == "{}") {
+    if (JSON.stringify(this.$store.state.Keeps.length) == 0) {
       let activeKeepData = JSON.parse(
         window.localStorage.getItem("activeKeepData")
       );
@@ -50,22 +56,25 @@ export default {
         console.error("error retrieving activeKeepData from local storage");
       }
       this.$store.dispatch("setActiveKeep", activeKeepData);
-      console.log("activeKeep: ", this.$store.state.activeKeep);
+      console.log("activeKeep in store: ", this.$store.state.Keeps);
     } else {
       window.localStorage.setItem(
         "activeKeepData",
-        JSON.stringify(this.$store.state.activeKeep)
+        JSON.stringify(this.$store.state.Keeps)
       );
     }
-    this.$store.dispatch("updateViews", this.$store.state.activeKeep.id);
+    this.$store.dispatch("updateViews", this.$store.state.Keeps.id);
   },
   computed: {
     details() {
-      return this.$store.state.activeKeep;
+      return this.$store.state.Keeps;
     }
   },
   methods: {
     nothing() {}
+  },
+  components: {
+    Keep
   }
 };
 </script>

@@ -4,7 +4,7 @@
       <li>
         <div class="d-flex">
           <button class="btn btn-sm btn-danger" @click="deleteVault">X</button>
-          <h5 class="point ml-3" @click="getKeepsByVaultId">{{ vaultData.name }}</h5>
+          <h5 class="point ml-3 mb-0" @click="getKeepsByVaultId">{{ vaultData.name }}</h5>
         </div>
       </li>
     </ul>

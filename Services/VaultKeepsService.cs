@@ -12,6 +12,7 @@ namespace Keepr.Services
     {
       _repo = repo;
     }
+
     internal VaultKeep Create(VaultKeep newVaultKeep)
     {
       return _repo.Create(newVaultKeep);
@@ -29,6 +30,19 @@ namespace Keepr.Services
         return found;
       }
       throw new Exception("Something went terribly wrong");
+    }
+    internal VaultKeep DeleteVaultKeep(VaultKeep toRemove)
+    {
+      VaultKeep found = _repo.Get(toRemove);
+      if (found.UserId != toRemove.UserId)
+      {
+        throw new UnauthorizedAccessException("Invalid Request");
+      }
+      if (_repo.DeleteVaultKeep(toRemove))
+      {
+        return found;
+      }
+      throw new Exception("Invalid data");
     }
 
   }//endof class
