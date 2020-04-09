@@ -7,6 +7,7 @@
       :key="keepObj.id"
       :keepData="keepObj"
       :keepIndex="index"
+      :currentView="currentView"
     />
   </div>
 </template>
@@ -15,6 +16,7 @@
 import Keep from "./Keep";
 export default {
   name: "Keeps",
+  props: ["currentView"],
   //NOTE Computed's are watching the store for changes (observers) and are reactive to change
   //NOTE Computeds can be treated like getters (variable properties) and should always be used when getting data from the state
   computed: {

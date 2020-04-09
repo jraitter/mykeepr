@@ -1,6 +1,6 @@
 <template>
   <div class="keep col">
-    <div class="card m-4">
+    <div class="card m-4" style="width: 18rem;">
       <img :src="keepData.img" class="card-img-top" />
       <div class="card-body border border-dark mt-1 mx-1">
         <h6 class="card-title mb-0">{{ keepData.name }}</h6>
@@ -12,6 +12,7 @@
       </div>
       <div class="text-center d-flex justify-content-around mt-2">
         <button
+          v-if="this.$auth.isAuthenticated"
           class="btn btn-sm btn-info dropdown-toggle float-left"
           type="button"
           id="dropdownMenuButton"
@@ -32,6 +33,7 @@
       </div>
       <div class="d-flex justify-content-around my-2">
         <button
+          v-if="currentView == 'Vault'"
           class="btn btn-sm btn-info"
           @click="removeKeepfromVault(keepData.id, activeVault.id )"
         >Remove</button>
@@ -46,7 +48,10 @@ import Swal from "sweetalert2";
 export default {
   name: "Keep",
   //NOTE child components 'catch' information in props
-  props: ["keepData", "keepIndex"],
+  props: ["keepData", "keepIndex", "currentView"],
+  mounted() {
+    console.log("currentView: ", this.currentView);
+  },
   computed: {
     vaults() {
       return this.$store.state.Vaults;

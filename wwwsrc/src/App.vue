@@ -14,6 +14,7 @@ export default {
     await onAuth();
     this.$store.dispatch("setBearer", this.$auth.bearer);
     this.$store.dispatch("setAuthUser", this.$auth.user);
+    // console.log("dollar auth:", this.$auth);
   },
   components: {
     Navbar

@@ -8,7 +8,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <keeps />
+        <keeps :currentView="currentView" />
       </div>
     </div>
   </div>
@@ -19,6 +19,11 @@ import Keeps from "../components/Keeps";
 export default {
   name: "VaultDetails",
   mounted() {},
+  data() {
+    return {
+      currentView: "Vault"
+    };
+  },
   computed: {
     activeVault() {
       return this.$store.state.activeVault;

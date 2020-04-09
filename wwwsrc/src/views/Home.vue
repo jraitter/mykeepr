@@ -8,7 +8,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <keeps />
+        <keeps :currentView="currentView" />
       </div>
     </div>
   </div>
@@ -25,7 +25,8 @@ export default {
   },
   data() {
     return {
-      keepForm: false
+      keepForm: false,
+      currentView: "Home"
     };
   },
   components: {

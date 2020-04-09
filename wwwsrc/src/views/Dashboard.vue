@@ -31,7 +31,7 @@
 
     <div class="row">
       <div class="col-12">
-        <keeps />
+        <keeps :currentView="currentView" />
       </div>
     </div>
   </div>
@@ -54,7 +54,8 @@ export default {
   data() {
     return {
       keepForm: false,
-      vaultForm: false
+      vaultForm: false,
+      currentView: "Dash"
     };
   },
   components: {
