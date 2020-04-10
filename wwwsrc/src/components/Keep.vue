@@ -57,6 +57,9 @@ export default {
     },
     activeVault() {
       return this.$store.state.activeVault;
+    },
+    keeps() {
+      return this.$store.state.Keeps;
     }
   },
   methods: {

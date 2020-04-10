@@ -231,7 +231,7 @@ export default new Vuex.Store({
         let getres = await api.get("keeps/" + keepId);
         getres.data.isPrivate = false;
         let putres = await api.put("keeps/" + keepId, getres.data);
-        commit("setUpdatedKeep", putres.data);
+        commit("addKeep", putres.data);
         commit("setUpdatedMyKeep", putres.data);
       } catch (error) {
         console.error(error);
