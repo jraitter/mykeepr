@@ -44,15 +44,18 @@ export default {
   name: "Navbar",
   methods: {
     async login() {
+      this.$store.dispatch("getKeeps");
       await this.$auth.loginWithPopup();
       this.$store.dispatch("setBearer", this.$auth.bearer);
       if (this.$auth.isAuthenticated) {
+        this.$store.dispatch("setAuthUser", this.$auth.user);
         this.$store.dispatch("getMyKeeps");
         this.$store.dispatch("getVaults");
-        this.$store.dispatch("setAuthUser", this.$auth.user);
+      } else {
+        console.log(
+          "auth.isAuthenticaten if false at this point in navbar.vue"
+        );
       }
-      // console.log("this.$auth.user: ");
-      // console.log(this.$auth.user);
     },
     async logout() {
       this.$store.dispatch("resetBearer");

@@ -11,12 +11,15 @@ import { onAuth } from "@bcwdev/auth0-vue";
 export default {
   name: "App",
   async beforeCreate() {
+    this.$store.dispatch("getKeeps");
     await onAuth();
     this.$store.dispatch("setBearer", this.$auth.bearer);
     if (this.$auth.isAuthenticated) {
+      this.$store.dispatch("setAuthUser", this.$auth.user);
       this.$store.dispatch("getMyKeeps");
       this.$store.dispatch("getVaults");
-      this.$store.dispatch("setAuthUser", this.$auth.user);
+    } else {
+      console.log("auth.isAuthenticaten if false at this point in App.vue");
     }
   },
   components: {

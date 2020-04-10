@@ -25,11 +25,6 @@
               {{ details.description }}
             </p>
           </div>
-          <!-- <div class="text-center d-flex justify-content-around my-2">
-            <button class="btn btn-sm btn-info" @click="nothing">Keep</button>
-            <button class="btn btn-sm btn-primary" @click="nothing">Share</button>
-            <button v-if="details.isPrivate" class="btn btn-sm btn-danger" @click="nothing">Delete</button>
-          </div>-->
         </div>
       </div>
 
@@ -48,7 +43,7 @@ import Keep from "../components/Keep";
 export default {
   name: "KeepDetails",
   mounted() {
-    if (JSON.stringify(this.$store.state.Keeps.length) == 0) {
+    if (JSON.stringify(this.$store.state.activeKeep.length) == 0) {
       let activeKeepData = JSON.parse(
         window.localStorage.getItem("activeKeepData")
       );
@@ -56,18 +51,19 @@ export default {
         console.error("error retrieving activeKeepData from local storage");
       }
       this.$store.dispatch("setActiveKeep", activeKeepData);
-      console.log("activeKeep in store: ", this.$store.state.Keeps);
-    } else {
-      window.localStorage.setItem(
-        "activeKeepData",
-        JSON.stringify(this.$store.state.Keeps)
-      );
+      console.log("activeKeep in store: ", this.$store.state.activeKeep);
     }
-    this.$store.dispatch("updateViews", this.$store.state.Keeps.id);
+    this.$store.dispatch("updateViews", this.$store.state.activeKeep.id);
+  },
+  updated() {
+    window.localStorage.setItem(
+      "activeKeepData",
+      JSON.stringify(this.$store.state.activeKeep)
+    );
   },
   computed: {
     details() {
-      return this.$store.state.Keeps;
+      return this.$store.state.activeKeep;
     }
   },
   methods: {

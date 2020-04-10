@@ -1,14 +1,35 @@
 <template>
   <div class="keeps row">
     <!-- NOTE Props are data passed from parent to child component -->
-    <!-- <div class="col-12">maybe put a search here</div> -->
-    <keep
-      v-for="(keepObj, index) in keeps"
-      :key="keepObj.id"
-      :keepData="keepObj"
-      :keepIndex="index"
-      :currentView="currentView"
-    />
+    <div class="col-12 d-flex">
+      <div v-if="currentView == 'Home'">
+        <keep
+          v-for="(keepObj, index) in keeps"
+          :key="keepObj.id"
+          :keepData="keepObj"
+          :keepIndex="index"
+          :currentView="currentView"
+        />
+      </div>
+      <div v-if="currentView == 'Dash'">
+        <keep
+          v-for="(keepObj, index) in mykeeps"
+          :key="keepObj.id"
+          :keepData="keepObj"
+          :keepIndex="index"
+          :currentView="currentView"
+        />
+      </div>
+      <div v-if="currentView == 'Vault'">
+        <keep
+          v-for="(keepObj, index) in vaultkeeps"
+          :key="keepObj.id"
+          :keepData="keepObj"
+          :keepIndex="index"
+          :currentView="currentView"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -23,6 +44,14 @@ export default {
     //NOTE Computeds must always return a value
     keeps() {
       let data = this.$store.state.Keeps;
+      return data;
+    },
+    mykeeps() {
+      let data = this.$store.state.myKeeps;
+      return data;
+    },
+    vaultkeeps() {
+      let data = this.$store.state.VaultKeeps;
       return data;
     }
   },

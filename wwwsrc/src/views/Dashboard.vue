@@ -31,7 +31,9 @@
 
     <div class="row">
       <div class="col-12">
-        <keeps :currentView="currentView" />
+        <div class="card-columns">
+          <keeps :currentView="currentView" />
+        </div>
       </div>
     </div>
   </div>
@@ -45,12 +47,6 @@ import Vaults from "../components/Vaults";
 
 export default {
   name: "Dashboard",
-  mounted() {
-    //NOTE mounted is fired when the component is 'mounted' to the page
-    //NOTE '$' is a reference to the Root instance (main.js)
-    this.$store.dispatch("getMyKeeps");
-    this.$store.dispatch("getVaults");
-  },
   data() {
     return {
       keepForm: false,

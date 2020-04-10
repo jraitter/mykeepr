@@ -1,6 +1,6 @@
 <template>
-  <div class="keep col">
-    <div class="card m-4" style="width: 18rem;">
+  <div class="keep">
+    <div class="card m-4">
       <img :src="keepData.img" class="card-img-top" />
       <div class="card-body border border-dark mt-1 mx-1">
         <h6 class="card-title mb-0">{{ keepData.name }}</h6>

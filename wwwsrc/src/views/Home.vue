@@ -3,12 +3,17 @@
     <div class="row text-center">
       <div class="col">
         <h1>Welcome to the KeepR home page</h1>
-        <h3>Browse and add any of these keeps to one of your Vaults</h3>
+        <h3
+          v-if="this.$auth.isAuthenticated"
+        >Browse and add any of these keeps to one of your Vaults</h3>
+        <h3 v-else>Log-in to be able to create vaults and put keeps in your vaults</h3>
       </div>
     </div>
     <div class="row">
       <div class="col-12">
-        <keeps :currentView="currentView" />
+        <div class="card-columns">
+          <keeps :currentView="currentView" />
+        </div>
       </div>
     </div>
   </div>
@@ -21,7 +26,7 @@ export default {
   mounted() {
     //NOTE mounted is fired when the component is 'mounted' to the page
     //NOTE '$' is a reference to the Root instance (main.js)
-    this.$store.dispatch("getKeeps");
+    // this.$store.dispatch("getKeeps");
   },
   data() {
     return {
